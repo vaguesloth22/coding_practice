@@ -1,3 +1,4 @@
+// Using Recursion: 
 class Solution {
 public:
     int bs(vector<int> &nums, int low, int high, int ans) {
@@ -24,3 +25,29 @@ public:
         return bs(nums, low, high, ans);
     }
 };
+
+
+
+// Solving Iteratively: 
+int findMin(vector<int>& arr)
+{
+	int low = 0, high = arr.size() - 1; 
+	int ans = INT_MAX;
+	int mid;  
+	while (low <= high) {
+		mid = low + (high - low) / 2; 
+		if (arr[low] <= arr[mid] && arr[mid] <= arr[high]) {
+			ans = min(ans, arr[low]); 
+			break;
+		}
+		if (arr[mid] >= arr[low]) {
+			ans = min(ans, arr[low]); 
+			low = mid + 1; 
+		}
+		else {
+			ans = min(ans, arr[mid]); 
+			high = mid - 1; 
+		}
+	}
+	return ans;
+}
