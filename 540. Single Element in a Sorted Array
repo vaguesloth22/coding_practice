@@ -9,3 +9,44 @@ public:
         return ans; 
     }
 };
+
+// Iterative Search: Would need to hardcode each of the edgecases and overflow conditions that may occur. Hence we use binary search. 
+
+// Binary Search using Recursion: 
+class Solution {
+public:
+    int bs(vector<int> &nums, int low, int high, int N) {
+        if (low > high) {
+            return -1; 
+        }
+        if (N == 1) return nums[0]; 
+        if (nums[0] != nums[1]) {
+            return nums[0]; 
+        }
+        if (nums[N-2] != nums[N-1]) {
+            return nums[N-1]; 
+        }
+        int mid = low + (high - low) / 2; 
+        if (nums[mid-1] != nums[mid] && nums[mid] != nums[mid+1]) {
+            return nums[mid]; 
+        }
+        // Eliminating left half by checking both conditions: 
+        else if ((nums[mid] == nums[mid-1] && mid%2 == 1) || (mid%2 == 0 && nums[mid] == nums[mid+1])) {
+            low = mid + 1;
+            return bs(nums, low, high, N); 
+        }
+        // Eleiminating right half by checking both conditions: 
+        else if ((nums[mid] == nums[mid-1] && mid%2 == 0) ||(mid%2 == 1 && nums[mid] == nums[mid+1])) {
+            high = mid - 1; 
+            return bs(nums, low, high, N); 
+
+        }
+        return -1;
+    }
+    int singleNonDuplicate(vector<int>& nums) {
+        int low = 0, high = nums.size() - 1, ans = -1;
+        int N = nums.size(); 
+        return bs(nums, low, high, N); 
+    }
+};
+
