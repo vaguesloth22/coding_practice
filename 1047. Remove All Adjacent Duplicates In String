@@ -1,0 +1,42 @@
+// Brute Force: Reverse function can be used (not used here)...
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        stack<char> st;
+        stack<char> ans; 
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s[i]; 
+            if (st.empty()) {
+                st.push(ch);
+            }
+            else if (st.top() == ch) {
+                st.pop(); 
+            }
+            else {
+                st.push(ch);
+            }
+        }
+        while (true) {
+            if (!st.empty()) {
+                char rd = st.top(); 
+                ans.push(rd); 
+                st.pop();
+            }
+            else {
+                break; 
+            }
+        }
+        string str = ""; 
+        for (int i = 0; i < s.length(); i++) {
+            if (!ans.empty()) {
+                char ch = ans.top(); 
+                ans.pop(); 
+                str += ch; 
+            }
+            else {
+                break;
+            }
+        }
+        return str; 
+    }
+};
