@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool condition(int &pa) {
+        if (pa >= 97 && pa <= 122) {
+            return true; 
+        }
+        return false; 
+    }
+    string clearDigits(string s) {
+        for (int i = 0; i < s.length(); i++) {
+            // 97 to 122
+            int pa = int(s[i]); 
+            bool chk = condition(pa); 
+            if (!chk && isdigit(s[i])) {
+                s.erase(i,1); 
+                i--; 
+                for (int j = i; j >= 0; j--) {
+                    if (!isdigit(s[j])) {
+                        s.erase(j, 1); 
+                        i--;
+                        break; 
+                    }
+                }
+            }
+        }   
+        return s; 
+    }
+};
