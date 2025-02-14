@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string largestOddNumber(string num) {
+        int j = num.size() - 1;
+        if (j == 0) {
+            int ans = int(num[0]); 
+            if (ans%2 == 1) {
+                return num; 
+            }
+            else {
+                return ""; 
+            }
+        }
+        int ans = 0; 
+        while (j >= 0) {
+            int ans = int(num[j]); 
+            if (ans%2 == 1) {
+                break; 
+            }
+            j--; 
+        }
+        string s = num.substr(0, j+1); 
+        return s; 
+    }
+};
