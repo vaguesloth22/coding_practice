@@ -26,3 +26,20 @@ public:
         return head; 
     }
 };
+
+// Two pointer approach: Coding Ninjas
+Node* reverseLinkedList(Node *head)
+{
+    // Write your code here
+    Node * prev = nullptr; 
+    Node * front;  
+    Node * temp = head; 
+    while (temp != nullptr) {
+        front = temp->next; 
+        temp->next = prev; 
+        prev = temp; 
+        temp = front; 
+    }
+    return prev; 
+}
+
