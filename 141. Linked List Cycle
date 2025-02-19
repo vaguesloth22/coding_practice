@@ -1,0 +1,15 @@
+// Bruto force: changing the value of linked list that's not given in the contraints
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode * ptr = head; 
+        while (ptr && ptr->next != nullptr) {
+            if (ptr->val == INT_MAX) {  
+                return true; 
+            }
+            ptr->val = INT_MAX;  
+            ptr = ptr->next;
+        }
+        return false; 
+    }
+};
