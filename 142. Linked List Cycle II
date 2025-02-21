@@ -1,0 +1,43 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+// Brute Force Approach: Hashing Using Map DS
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode * temp = head; 
+        map<ListNode *, int> mpp; 
+        while (temp != nullptr && mpp.find(temp) == mpp.end()) {
+            mpp[temp]++; 
+            temp = temp->next; 
+        }
+        if (temp == nullptr) {
+            return nullptr; 
+        }
+        return temp; 
+    }
+};
+// Optimal Approach: Using Tortoise-Hare Algorithm (Intuition was simple, but had to look it up)
+Node* findFirstNode(Node* head) {
+    Node * slow = head; 
+    Node * fast = head; 
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next; 
+        fast = fast->next->next; 
+        if (slow == fast) {
+            slow = head; 
+            break; 
+        }
+    }
+    if (fast == nullptr || fast->next == nullptr) return nullptr;   // program would arrive at this condition if, the linked list doesn't have a loop...
+    while (slow != fast) {
+        slow = slow->next; 
+        fast = fast->next; 
+    }
+    return fast;
+}
