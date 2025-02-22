@@ -18,13 +18,20 @@ public:
             temp = temp->next; 
         }
         temp = head; 
-        if (cnt == n) return head->next;
+        if (cnt == n) {
+            ListNode * toDel = head; 
+            head = head->next; 
+            delete toDel; 
+            return head;
+        }
         n = cnt - n - 1; 
         while (n > 0) {
             temp = temp->next; 
             n--; 
         }
+        ListNode * toDel = temp->next; 
         temp->next = temp->next->next; 
+        delete toDel;
         return head; 
     }
 };
