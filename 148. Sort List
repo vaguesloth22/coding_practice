@@ -28,3 +28,45 @@ public:
         return head; 
     }
 };
+// Using Merge Sort & Tortoise-Hare Algorithm and other algorithms to get O(1) space complexity & TC of O(Nlog(N));
+Node * findMiddle(Node * head) {
+	Node * slow = head; 
+	Node * fast = head->next; 
+	while (fast != nullptr && fast->next != nullptr) {
+		slow = slow->next; 
+		fast = fast->next->next; 
+	}
+	return slow; 
+}
+Node * mergeTwoLists(Node * list1, Node * list2) {
+	Node * new_head = new Node(-1);
+	Node * curr = new_head; 
+	while (list1 != nullptr && list2 != nullptr) {
+		if (list1->data <= list2->data) {
+			curr->next = list1; 
+			list1 = list1->next; 
+		}
+		else {
+			curr->next = list2; 
+			list2 = list2->next;
+		}
+		curr = curr->next; 
+	}
+	if (list1) curr->next = list1; 
+	if (list2) curr->next = list2; 
+	return new_head->next; 
+}
+Node *sortLL(Node *head)
+{
+    // Write your code here.
+	if (head == nullptr || head->next == nullptr) {
+		return head; 
+	}
+	Node * middle = findMiddle(head); 
+	Node * high = middle->next; 
+	middle->next = nullptr; 
+	Node * low = head; 
+	low = sortLL(low); 
+	high = sortLL(high); 
+	return mergeTwoLists(low, high); 
+}
