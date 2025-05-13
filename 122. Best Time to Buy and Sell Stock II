@@ -1,0 +1,41 @@
+// Gready Approach (Optimal): 
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int total = 0; 
+        for (int i = 0; i < prices.size() - 1; i++) { 
+            if (prices[i] < prices[i+1]) {
+                total += prices[i+1] - prices[i]; 
+            }
+        }
+        return total; 
+    }
+};
+// Greedy Approach (My version is a bit more complex, unnecessarly): 
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+int one, two, total = 0; 
+        bool chk = false; 
+        for (int i = 0; i < prices.size() - 1; i++) {
+            if (prices[i] < prices[i+1]) {
+                if (chk == false) { 
+                    one = prices[i]; 
+                    chk = true; 
+                }
+                two = prices[i+1];
+            }
+            else {
+                if (chk == true) {
+                    total += (two - one); 
+                    chk = false;
+                }
+            }
+        }
+        // If loop ends with an increasing sequence: 
+        if (chk) {
+            total += (two - one); 
+        }
+        return total; 
+    }
+};
