@@ -1,0 +1,102 @@
+// Better Solution: 
+class MinStack {
+private: 
+    stack<pair<int, int>> st; 
+public:
+    MinStack() {
+    }
+    
+    void push(int val) {
+        if (st.empty()) {
+            st.push({val, val}); 
+        }
+        else {
+            if (st.top().second < val) {
+                st.push({val, st.top().second}); 
+            }
+            else {
+                st.push({val, val}); 
+            }
+        }
+    }
+    
+    void pop() {
+        st.pop(); 
+    }
+    
+    int top() {
+        return st.top().first; 
+    }
+    
+    int getMin() {
+        return st.top().second; 
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
+
+// Optimal Solution: 
+class MinStack {
+private: 
+    long long min = INT_MAX;
+    stack <long long> st;  
+public:
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        if (st.empty()) {
+            min = val; 
+            st.push((long long)val);
+        }
+        else if (min < val) {
+            st.push((long long)val);
+        }
+        else {
+            long long prev_min = min; 
+            st.push(2LL * val - prev_min); 
+            min = val; 
+        }
+    }
+    
+    void pop() {
+        if (st.top() < min) {
+            long long prev_min = 2LL * min - st.top(); 
+            st.pop(); 
+            min = prev_min; 
+        }
+        else {
+            st.pop(); 
+        }
+    }
+    
+    int top() {
+        if (st.top() >= min) {
+            return st.top(); 
+        }
+        else { 
+            return min; 
+        }
+    }
+    
+    int getMin() {
+        return min; 
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
