@@ -1,0 +1,42 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ // Brute Force Approach: 
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        if (head == nullptr) {
+            return nullptr; 
+        }
+        vector<int> arr; 
+        ListNode * ptr = head; 
+        while (ptr) {
+            if (ptr->val < x) { 
+                arr.push_back(ptr->val); 
+            }
+            ptr = ptr->next; 
+        }
+        ptr = head; 
+        while (ptr) {
+            if (ptr->val >= x) { 
+                arr.push_back(ptr->val); 
+            }
+            ptr = ptr->next; 
+        }
+        ptr = head;
+        int iter = 0; 
+        while (ptr) {
+            ptr->val = arr[iter]; 
+            iter++; 
+            ptr = ptr->next; 
+        }
+        return head; 
+    }    
+};
