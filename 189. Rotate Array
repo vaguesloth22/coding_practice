@@ -1,0 +1,25 @@
+// Better Approach: 
+void rotate(std::vector<int>& nums, int k) {
+    int n = nums.size();
+    k %= n;
+    for (int i = 0; i < k; i++) {
+        int temp = nums[n - 1];
+        for (int j = n - 1; j > 0; j--) {
+            nums[j] = nums[j - 1];
+        }
+        nums[0] = temp;
+    }
+}
+
+// Optimal Approach: 
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        k = k % n;
+        reverse(nums.begin(), nums.begin() + (n - k));       // 1. Reverse the first part (A)
+        reverse(nums.begin() + (n - k), nums.end());         // 2. Reverse the second part (B)
+        reverse(nums.begin(), nums.end());                   // 3. Reverse the entire array
+
+    }
+};
