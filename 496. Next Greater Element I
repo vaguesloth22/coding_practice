@@ -1,0 +1,27 @@
+// Brute Force: 
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans; 
+        int temp; 
+        for (int i = 0; i < nums1.size(); i++) {
+            for (int j = 0; j < nums2.size(); j++) { 
+                if (nums2[j] == nums1[i]) {
+                    temp = j; 
+                    break;
+                }
+            }
+            bool found = false;
+            for (int i = temp+1; i < nums2.size(); i++) {
+                if (nums2[i] > nums2[temp]) {
+                    temp = nums2[i]; 
+                    ans.push_back(temp); 
+                    found = true;
+                    break; 
+                }
+            }
+            if (!found) ans.push_back(-1); 
+        }
+        return ans; 
+    }
+};
