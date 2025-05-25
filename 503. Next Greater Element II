@@ -1,0 +1,33 @@
+// Brute force: Without using stack & using nested for loops
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        int temp = 0;
+        vector <int> ans;  
+        int n = nums.size(); 
+        for (int i = 0; i < n; i++) {
+            temp = nums[i]; 
+            bool found = false; 
+            for (int j = i+1; j < n; j++) {
+                if (nums[j] > temp) {
+                    ans.push_back(nums[j]);
+                    found = true; 
+                    break;  
+                }
+            }
+            if (!found) {
+                for (int k = 0; k < i; k++) {
+                    if (nums[k] > temp) {
+                        ans.push_back(nums[k]);
+                        found = true;  
+                        break; 
+                    }
+                }
+            }
+            if (!found) {
+                ans.push_back(-1); 
+            }
+        }
+        return ans; 
+    }
+};
