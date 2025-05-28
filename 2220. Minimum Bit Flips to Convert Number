@@ -1,3 +1,4 @@
+// Brute Force: 
 class Solution {
 public:
     int minBitFlips(int start, int goal) {
@@ -16,3 +17,5 @@ public:
         return cnt; 
     }
 };
+
+// Optimal Approach: Using XOR operator
