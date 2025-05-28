@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minBitFlips(int start, int goal) {
+        int cnt = 0; 
+        int i = 0; 
+        while (i < 31) {
+            int one = (start & 1); 
+            int two = (goal & 1); 
+            if (one != two) {
+                cnt++;
+            }
+            start = start >> 1;
+            goal = goal >> 1;
+            i++;  
+        }
+        return cnt; 
+    }
+};
