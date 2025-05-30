@@ -1,0 +1,14 @@
+// INtuition: suppose a number 513, how do you compute it from the first digits, 
+// First of all you do num = num * 10 + data; // Similarly you do the same when base is 2; 
+class Solution {
+public:
+    int getDecimalValue(ListNode* head) {
+        ListNode * ptr = head; 
+        int num = 0; 
+        while (ptr) {
+            num = num * 2 + ptr->val; 
+            ptr = ptr->next; 
+        }
+        return num; 
+    }
+};
