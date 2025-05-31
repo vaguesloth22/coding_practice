@@ -1,0 +1,25 @@
+Brute Force: As you iterate over the linked list, store elements in an array and reverse the k elements in it. Then copy the element of the array to the org linkd list: 
+
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode * curr = head; 
+        int cnt = 0;
+        vector <int> ans;  
+        while (curr) {
+            ans.push_back(curr->val);
+            cnt++;  
+            if (k == cnt) {
+                reverse(ans.end() - k, ans.end());
+                cnt = 0; 
+            }
+            curr = curr->next; 
+        }
+        curr = head; 
+        for (int i = 0; i < ans.size(); i++) {
+            curr->val = ans[i]; 
+            curr = curr->next; 
+        }
+        return head; 
+    }
+};
