@@ -1,0 +1,23 @@
+class Solution {
+private: 
+    vector<vector<int>> ans; 
+public:
+    void generate_subsequences(int ind, vector <int> temp, int n, vector<int>& nums) {   
+        if (ind == n) {
+            ans.push_back(temp); 
+            return; 
+        }
+        temp.push_back(nums[ind]); 
+        generate_subsequences(ind + 1, temp, n, nums); 
+        
+        temp.pop_back(); 
+        generate_subsequences(ind + 1, temp, n, nums); 
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        ans.clear(); 
+        vector <int> temp; 
+        int n = nums.size(); 
+        generate_subsequences (0, temp, n, nums); 
+        return ans; 
+    }
+};
