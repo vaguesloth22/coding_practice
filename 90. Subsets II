@@ -1,0 +1,22 @@
+// Brute Force: Store elements in a set. (set doesn't store duplicates)...
+class Solution {
+public:
+    void fnc(int ind, vector<int> &nums, vector<int> &temp, set<vector<int>> &ans) {
+        if (ind == nums.size()) {
+            ans.insert(temp);  
+            return; 
+        }
+        temp.push_back(nums[ind]); 
+        fnc(ind+1, nums, temp, ans); 
+
+        temp.pop_back(); 
+        fnc(ind+1, nums, temp, ans); 
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        set<vector<int>> ans; 
+        sort(nums.begin(), nums.end()); 
+        vector<int> temp; 
+        fnc(0, nums, temp, ans);
+        return vector<vector<int>>(ans.begin(), ans.end());
+    }
+};
