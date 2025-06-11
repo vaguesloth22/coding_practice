@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool chk_tree(TreeNode * left, TreeNode * right) {
+        if (left == nullptr && right == nullptr) {
+            return true; 
+        }
+        if (left == nullptr || right == nullptr) {
+            return false; 
+        }
+        if (left->val != right->val) {
+            return false; 
+        }
+        bool one = chk_tree(left->left, right->right); 
+        bool two = chk_tree(left->right, right->left); 
+        return one && two; 
+    }
+    bool isSymmetric(TreeNode* root) {
+        return chk_tree(root->left, root->right); 
+    }
+};
