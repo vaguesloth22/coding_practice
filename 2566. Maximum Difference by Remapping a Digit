@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int minMaxDifference(int num) {
+        string s1 = to_string(num); 
+        int i = 0; 
+        while (s1[i] == '9') {
+            i++; 
+        }
+        char big = s1[i]; 
+        for (auto &ch: s1) {
+            if (ch == big) {
+                ch = '9'; 
+            }
+        }
+
+        string s2 = to_string(num); 
+        char small = s2[0]; 
+        for (auto &ch: s2) {
+            if (ch == small) {
+                ch = '0'; 
+            }
+        }
+        
+        int answer = stoi(s1) - stoi(s2); 
+        return answer; 
+    }
+};
