@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string> divideString(string s, int k, char fill) {
+        int count; 
+        int n = s.size(); 
+        vector <string> answer; 
+        int i = 0; 
+        while (i < s.size()) {
+            count = 0;
+            string str = "";  
+            for (int j = 0; j < k; j++) {
+                if (i+j < n) {
+                    str += s[i+j]; 
+                }
+                else if (str.size() < k) {
+                    str += fill; 
+                }
+            }
+            answer.push_back(str); 
+            i = i + k; 
+        }
+        return answer; 
+    }
+};
