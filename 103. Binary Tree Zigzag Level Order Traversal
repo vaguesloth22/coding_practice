@@ -1,0 +1,31 @@
+class Solution {
+public:
+    void zigzag_traversal(TreeNode * root, vector<vector<int>> &ans) {
+        queue <TreeNode *> q; 
+        bool flag = false; 
+        if (root == nullptr) return; 
+        q.push(root); 
+        while (!q.empty()) {
+            int size = q.size(); 
+            vector <int> temp; 
+            for (int i = 0; i < size; i++) {
+                TreeNode * node = q.front(); 
+                q.pop(); 
+                if (node->left) q.push(node->left); 
+                if (node->right) q.push(node->right); 
+                temp.push_back(node->val); 
+            }
+            if (flag) {
+                reverse(temp.begin(), temp.end()); 
+            }
+            ans.push_back(temp); 
+            flag = !flag; 
+        }
+        return; 
+    }
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> answer; 
+        zigzag_traversal(root, answer); 
+        return answer; 
+    }
+};
