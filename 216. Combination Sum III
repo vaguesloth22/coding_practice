@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void chk_sum(int i, vector<vector<int>> &answer, int k, int n, vector<int> &temp, int cnt, int sum) {
+        if (sum == n && cnt == k) {
+            answer.push_back(temp); 
+            return; 
+        }
+        if (i > 9 || sum > n || cnt > k) {
+            return; 
+        }
+        temp.push_back(i); 
+        chk_sum(i+1, answer, k, n, temp, cnt + 1, sum + i); 
+        temp.pop_back(); 
+        chk_sum(i+1, answer, k, n, temp, cnt, sum); 
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>> answer; 
+        int cnt = 0, sum = 0;
+        vector <int> temp; 
+        chk_sum(1, answer, k, n, temp, cnt, sum); 
+        return answer; 
+    }
+};
