@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void root_to_leaf(TreeNode * node, vector<string> &answer, string s) {
+        if (node == nullptr) {
+            return; 
+        }
+        if (node->left == nullptr && node->right == nullptr) {
+            s += to_string(node->val); 
+            answer.push_back(s); 
+            return; 
+        }
+        s += to_string(node->val); 
+        s += "->"; 
+        if (node->left) {
+            root_to_leaf(node->left, answer, s); 
+        }
+        if (node->right) {
+            root_to_leaf(node->right, answer, s); 
+        }
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector <string> answer; 
+        string s = "";
+        root_to_leaf(root, answer, s); 
+        return answer; 
+    }
+};
