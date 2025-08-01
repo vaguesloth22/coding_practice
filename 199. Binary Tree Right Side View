@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector <int> ans; 
+        queue<pair<TreeNode *, pair<int, int>>> q; 
+        if (root == nullptr) return ans; 
+        map<int, int> mpp; 
+        q.push({root, {0, 0}}); 
+        while (!q.empty()) {
+            auto p = q.front(); 
+            TreeNode * node = p.first; 
+            int level = p.second.first; 
+            int vertical = p.second.second; 
+            q.pop();
+            mpp[level] = node->val; 
+            if (node->left) q.push({node->left, {level+1, vertical-1}}); 
+            if (node->right) q.push({node->right, {level+1, vertical+1}}); 
+        }
+        for (auto item : mpp) {
+            ans.push_back(item.second); 
+        }
+        return ans; 
+    }
+};
