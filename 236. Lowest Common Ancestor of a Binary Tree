@@ -1,0 +1,32 @@
+// Brute Force: HARD
+class Solution {
+public:
+    bool find_path(TreeNode * node, TreeNode * target, vector<TreeNode*> &path, vector<TreeNode*> &new_path) {
+        if (node == nullptr) {
+            return false; 
+        }
+        path.push_back(node); 
+        if (node == target) {
+            new_path = path; 
+            return true; 
+        }
+        if (find_path(node->left, target, path, new_path) || find_path(node->right, target, path, new_path)) {
+            return true; 
+        } 
+        path.pop_back(); 
+        return false; 
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        vector<TreeNode*> path1;
+        vector<TreeNode*> path;
+        bool x = find_path(root, p, path, path1);  
+        vector<TreeNode*> path2;
+        path.clear(); 
+        bool y = find_path(root, q, path, path2); 
+        int i = 0; 
+        while (i < path1.size() && i < path2.size() && path1[i] == path2[i]) {
+            i++; 
+        }
+        return path1[i-1]; 
+    }
+};
