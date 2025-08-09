@@ -1,0 +1,33 @@
+// Using a helper function: 
+class Solution {
+public:
+    TreeNode * find_place(TreeNode * node, int &val) {
+        if (node == nullptr) {
+            return nullptr; 
+        }
+        if (node->val < val) {
+            if (node->right) {
+                return find_place(node->right, val); 
+            }
+        } 
+        else {
+            if (node->left) {
+                return find_place(node->left, val); 
+            }
+        }
+        return node; 
+    }
+    TreeNode* insertIntoBST(TreeNode* root, int val) { 
+        TreeNode * new_node = new TreeNode(val); 
+        if (root == nullptr) {
+            return new_node; 
+        }
+        TreeNode * node = find_place(root, val); 
+        if (node->val > val) {
+            node->left = new_node; 
+        } else {
+            node->right = new_node; 
+        }
+        return root; 
+    }
+};
