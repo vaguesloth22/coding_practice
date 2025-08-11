@@ -1,0 +1,39 @@
+// Brute Force: 
+class Solution {
+public:
+    void bst(TreeNode * node, int k, vector<int> &ans) {
+        if (node == nullptr) {
+            return; 
+        }
+        bst(node->left, k, ans); 
+        ans.push_back(node->val); 
+        bst(node->right, k, ans); 
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> ans; 
+        bst(root, k, ans); 
+        return ans[k-1]; 
+    }
+};
+
+// Better Solution: 
+class Solution {
+public:
+    int answer; 
+    void bst(TreeNode * node, int k, int &cnt) {
+        if (node == nullptr) {
+            return;
+        }
+        bst(node->left, k, cnt); 
+        cnt++; 
+        if (cnt == k) {
+            answer = node->val; 
+        }
+        bst(node->right, k, cnt); 
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        int cnt = 0; 
+        bst(root, k, cnt); 
+        return answer; 
+    }
+};
