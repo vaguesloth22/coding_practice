@@ -1,0 +1,51 @@
+// Brute Force: 
+class Solution {
+public:
+    void bst(TreeNode * node, vector<int> &temp) {
+        if (!node) return; 
+        bst(node->left, temp); 
+        temp.push_back(node->val); 
+        bst(node->right, temp); 
+    }
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> temp; 
+        bst(root, temp); 
+        for (int i = 0; i < temp.size(); i++) {
+            for (int j = i + 1; j < temp.size(); j++) {
+                if(temp[i] + temp[j] == k) {
+                    return true; 
+                }
+            }
+        }
+        return false; 
+    }
+};
+// Better: optiimized searching
+class Solution {
+public:
+    void bst(TreeNode * node, vector<int> &temp) {
+        if (!node) return; 
+        bst(node->left, temp); 
+        temp.push_back(node->val); 
+        bst(node->right, temp); 
+    }
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> temp; 
+        bst(root, temp); 
+        int i = 0; 
+        int j = temp.size() - 1; 
+        while (i < j) {
+            if (temp[i] + temp[j] == k) {
+                return true; 
+            }
+            else if (temp[i] + temp[j] < k) {
+               i++;  
+            }
+            else {
+                j--; 
+            }
+        }
+        return false; 
+    }
+};
+
