@@ -1,0 +1,28 @@
+// Brute Force: Using extra space
+class Solution {
+public:
+    string reverseWords(string s) {
+        int i = 0; 
+        int length = s.size(); 
+        int start = 0;
+        vector <string> answer; 
+        while (i < length) {
+            while (i<length && s[i] == ' ') {
+                i++; 
+            }
+            start = i; 
+            while (i < length && s[i] != ' ') {
+                i++; 
+            }
+            if(start != i) answer.push_back(s.substr(start, i - start)); 
+        }
+        reverse(answer.begin(), answer.end()); 
+        string ans = ""; 
+        for (int j = 0; j < answer.size(); j++) {
+            ans += " ";
+            ans += answer[j]; 
+        }
+        return ans.substr(1); 
+    }
+};
+// Optimized: Using Reverse function
