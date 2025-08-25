@@ -1,0 +1,23 @@
+// Brute Force: Approach 1
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        string res = "";
+        map <string, int> mpp; 
+        for (int i = 0; i < strs.size(); i++) {
+            int length = strs[i].size(); 
+            for (int j = 1; j <= length; j++) {
+                string str = strs[i].substr(0, j); 
+                mpp[str]++; 
+            }
+        }
+        int maxlength = 0; 
+        for (auto &item : mpp) {
+            if (item.second == strs.size() && item.first.size() > maxlength) {
+                maxlength = item.first.size(); 
+                res = item.first; 
+            }
+        }
+        return res; 
+    }
+};
