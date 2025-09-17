@@ -1,0 +1,28 @@
+// Two-Pointer && Sliding Window Approach: 
+class Solution {
+public:
+    bool isOdd(int n) {
+        return (n % 2 == 1);
+    }
+    int fnc(vector<int> &nums, int k) {
+        int left = 0, right = 0; 
+        int cnt = 0, odd = 0; 
+        while (right < nums.size()) {
+            if (isOdd(nums[right])) {
+                odd++; 
+            }
+            while (odd > k) {
+                if (isOdd(nums[left])) {
+                    odd--; 
+                }
+                left++; 
+            }
+            cnt += right - left + 1; 
+            right++; 
+        }
+        return cnt; 
+    }
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        return fnc(nums, k) - fnc(nums, k - 1); 
+    }
+};
