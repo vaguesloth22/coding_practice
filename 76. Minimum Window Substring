@@ -1,0 +1,33 @@
+// gg question
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        unordered_map <char, int> tmap;
+        for (auto ch: t) {
+            tmap[ch]++; 
+        }
+        unordered_map <char, int> smap; 
+        int left = 0; 
+        int minlen = INT_MAX, sind = -1; 
+        int count = 0; 
+        for (int right = 0; right < s.size(); right++) {
+            smap[s[right]]++; 
+            if (tmap.find(s[right]) != tmap.end() && tmap[s[right]] == smap[s[right]]) {
+                count++; 
+            }
+            while (count == tmap.size()) {
+                if (right - left + 1 < minlen) {
+                    minlen = right - left + 1; 
+                    sind = left; 
+                }
+                smap[s[left]]--; 
+                if (tmap.find(s[left]) != tmap.end() && tmap[s[left]] > smap[s[left]]) {
+                    count--; 
+                }
+                left++; 
+            }
+
+        }
+        return sind == -1 ? "" : s.substr(sind, minlen); 
+    }
+};
