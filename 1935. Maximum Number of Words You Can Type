@@ -1,0 +1,29 @@
+// dumbass question: had to keep me awake till 2AM
+class Solution {
+public:
+    int canBeTypedWords(string text, string brokenLetters) {
+        unordered_map <char, int> mpp; 
+        int cnt = 0;
+        int strsize = 0;  
+        for (int i = 0; i < brokenLetters.size(); i++) {
+            mpp[brokenLetters[i]]++; 
+        }
+        int i = 0; 
+        int n = text.size(); 
+        while (i < n) {
+            bool brokenword = false; 
+            int j = i; 
+            while(text[j] != ' ' && j < text.size()) {
+                if (mpp.find(text[j]) != mpp.end()) {
+                    brokenword = true; 
+                }
+                j++; 
+            }
+            if (brokenword) cnt++;
+            strsize++; 
+            i = j + 1;
+        }
+        cout << strsize << " " << cnt; 
+        return strsize - cnt; 
+    }
+};
