@@ -1,0 +1,22 @@
+// Brute Force: 
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        vector <int> answer; 
+        for (int i = 0; i < lists.size(); i++) {
+            ListNode * head = lists[i]; 
+            while (head) {
+                answer.push_back(head->val); 
+                head = head->next; 
+            }
+        }
+        sort(answer.begin(), answer.end()); 
+        ListNode * dummy = new ListNode(-1); 
+        ListNode * head = dummy; 
+        for (int i = 0; i < answer.size(); i++) {
+            dummy->next = new ListNode(answer[i]); 
+            dummy = dummy->next; 
+        }
+        return head->next; 
+    }
+};
