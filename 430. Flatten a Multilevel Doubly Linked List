@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void push_nodes(Node * node, queue <Node* > &st) {
+        if (node == nullptr) {
+            return; 
+        }
+        st.push(node); 
+        push_nodes(node->child, st); 
+        push_nodes(node->next, st);    
+    }
+    Node* flatten(Node* head) {
+        if (!head) return nullptr; // irritating but necessary line
+        queue <Node *> st; 
+        push_nodes(head, st); 
+        Node * dummy = new Node(-1); 
+        Node * new_head = dummy; 
+        while (!st.empty()) {
+            Node * temp = st.front(); 
+            st.pop(); 
+
+            dummy->next = temp; 
+            temp->prev = dummy;
+            temp->child = nullptr;
+            dummy = dummy->next; 
+        }
+        new_head->next->prev = nullptr; 
+        return new_head->next;
+    }
+};
