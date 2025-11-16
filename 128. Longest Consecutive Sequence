@@ -1,0 +1,30 @@
+// Used two pointer apporach: 
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        if (nums.size() == 1) return 1; 
+        if (nums.empty()) return 0; 
+        int left = 0, right = 1; 
+        sort (nums.begin(), nums.end()); 
+
+        int maxlen = 1; 
+        while (right < nums.size()) {
+            if (nums[right] == nums[right-1]) {
+                left++; 
+                right++; 
+                continue; 
+            }
+            else if (nums[right] - nums[right-1] == 1) { 
+                maxlen = max(maxlen, right - left + 1); 
+            }
+            else {
+                left = right; 
+            }
+            right++; 
+        }
+        return maxlen; 
+    }
+};
+
+// linear time complexity along with 0(1) space :)
