@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int merge(vector<int> &arr, int low, int mid, int high, vector<int> &answer) {
+        int cnt = 0; 
+        int left = low, right = mid + 1;
+        while (left <= mid && right <= high) {
+            if (arr[left] <= arr[right]) {
+                answer.push_back(arr[left]);
+                left++;
+            } else {
+                answer.push_back(arr[right]);
+                cnt += (mid - left + 1); 
+                right++;
+            }
+        }
+        while (left <= mid) {
+            answer.push_back(arr[left]);
+            left++;
+        }
+        while (right <= high) {
+            answer.push_back(arr[right]);
+            right++;
+        }
+        for (int k = low; k <= high; k++) {
+            arr[k] = answer[k - low];
+        }
+        answer.clear();
+        return cnt; 
+    }
+
+    int mergeSort(vector<int> &arr, int low, int high, vector<int> &answer) {
+        int cnt = 0; 
+        if (low >= high) return cnt;
+        int mid = low + (high - low) / 2;
+        cnt += mergeSort(arr, low, mid, answer);
+        cnt += mergeSort(arr, mid + 1, high, answer);
+        cnt += merge(arr, low, mid, high, answer);
+        return cnt; 
+    }
+
+    int inversionCount(vector<int> &arr) {
+        int n = arr.size();
+        int low = 0, high = n - 1;
+        vector<int> answer;
+        return mergeSort(arr, low, high, answer);
+    }
+};
