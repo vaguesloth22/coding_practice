@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int jump(int i, vector<int> &nums, vector<int> &dp) {
+        int n = nums.size(); 
+        if (i >= n) return 0; 
+        if (dp[i] != -1) return dp[i]; 
+        int pick = nums[i] + jump(i + 2, nums, dp); 
+        int not_pick = jump(i + 1, nums, dp); 
+        dp[i] = max(pick, not_pick); 
+        return dp[i]; 
+    }
+    int rob(vector<int>& nums) {
+        if (nums.size() == 1) return nums[0];
+
+        vector <int> nums1 = nums; 
+        nums1.erase(nums1.begin()); 
+        vector <int> dp1 (nums1.size(), -1); 
+        
+        vector <int> nums2 = nums; 
+        nums2.erase(nums2.end() - 1); 
+        vector <int> dp2 (nums2.size(), -1); 
+        
+        int one = jump(0, nums1, dp1); 
+        int two = jump(0, nums2, dp2);
+        
+        return max(one, two); 
+    }
+};
