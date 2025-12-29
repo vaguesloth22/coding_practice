@@ -1,0 +1,26 @@
+// ek baar dp krna seekha jao na, toh maja aa jaata he bcx
+class Solution {
+public:
+    int traversal(int i, int j, vector<vector<int>> &triangle, vector<vector<int>> &dp) {
+        int n = triangle.size(); 
+        if (i == n - 1) {
+            return triangle[i][j]; 
+        }
+        if (dp[i][j] != 100000) return dp[i][j]; 
+        int below = triangle[i][j] + traversal(i + 1, j, triangle, dp); 
+        int right = triangle[i][j] + traversal(i + 1, j + 1, triangle, dp); 
+        dp[i][j] = min(below, right); 
+        return dp[i][j]; 
+    }
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n = triangle.size(); 
+        vector<vector<int>> dp = triangle; 
+        for (int i = 0; i < triangle.size(); i++) {
+            int n = triangle[i].size(); 
+            for (int j = 0; j < n; j++) {
+                dp[i][j] = 100000; 
+            }
+        }
+        return traversal(0, 0, triangle, dp); 
+    }
+};
