@@ -1,0 +1,29 @@
+// brute force, potd 
+class Solution {
+public:
+    int sumFourDivisors(vector<int>& nums) {
+        int ds = 0; 
+        map <int, int> mpp; 
+        for (int i = 0; i < nums.size(); i++) {
+            int temp = nums[i]; 
+            int cnt = 0;
+            int sum = 0;  
+            if (mpp.find(temp) != mpp.end()) {
+                ds += mpp[temp];
+                continue; 
+            }
+            for (int i = 1; i <= temp; i++) {
+                if (temp % i == 0) {
+                    sum += i; 
+                    cnt++;
+                }
+                if (cnt > 4) break; 
+            }
+            if (cnt == 4) {
+                mpp[temp] = sum; 
+                ds += sum; 
+            }
+        }
+        return ds; 
+    }
+};
