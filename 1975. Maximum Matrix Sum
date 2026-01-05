@@ -1,0 +1,39 @@
+// VERY BDSM Force: TC: N2(LogN)
+class Solution {
+public:
+    long long maxMatrixSum(vector<vector<int>>& matrix) {
+        vector <int> neg; 
+        long long pos = 0; 
+        vector <int> sum; 
+        bool flag = false; 
+        for (int i = 0; i < matrix.size(); i++) {
+            for (int j = 0; j < matrix.size(); j++) {
+                if (matrix[i][j] == 0) {
+                    flag = true; 
+                }
+                if (matrix[i][j] < 0) {
+                    neg.push_back(matrix[i][j]); 
+                } else {
+                    pos += matrix[i][j]; 
+                }
+                sum.push_back(matrix[i][j]); 
+            }
+        }
+        if (neg.size() % 2 == 0 || flag) {
+            for (int i = 0; i < neg.size(); i++) {
+                pos += abs(neg[i]); 
+            }
+            return pos;
+        }
+        for (int i = 0; i < sum.size(); i++) {
+            sum[i] = abs(sum[i]); 
+        }
+        sort(sum.begin(), sum.end()); 
+        long long result = 0; 
+        for (int i = 1; i < sum.size(); i++) {
+            result += sum[i]; 
+        }
+        result -= sum[0]; 
+        return result; 
+    }
+};
