@@ -1,0 +1,26 @@
+type Foo struct {
+    chA chan bool
+    chB chan bool
+}
+
+func NewFoo() *Foo {
+	return &Foo{
+        chA : make(chan bool),
+        chB : make(chan bool),
+	}
+}
+func (f *Foo) First(printFirst func()) {
+	printFirst()
+    chA <- true
+}
+
+func (f *Foo) Second(printSecond func()) {
+	<-chA
+	printSecond()
+    chB <- true
+}
+
+func (f *Foo) Third(printThird func()) {
+    <-chB
+	printThird()
+}
